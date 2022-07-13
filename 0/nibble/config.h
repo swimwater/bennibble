@@ -59,3 +59,9 @@
 /* Optional encoder pins */
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { B4 }
+
+/*Always send esc*/
+#define GRAVE_ESC_SHIFT_OVERRIDE
+#define GRAVE_ESC_GUI_OVERRIDE
+#define GRAVE_ESC_CTRL_OVERRIDE
+#define GRAVE_ESC_ALT_OVERRIDE
