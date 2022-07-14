@@ -298,7 +298,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-
+/*Runs at end of each scan loop, check if RGB timeout has occured*/
+void housekeeping_task_user(void) {
+  #ifdef RGBLIGHT_TIMEOUT
+  check_rgb_timeout();
+  #endif
+}
 
 void matrix_scan_user(void) {
   if (is_alt_tab_active) {
