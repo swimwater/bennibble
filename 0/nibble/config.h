@@ -55,6 +55,8 @@
 #define RGBLED_NUM 10
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_SLEEP
+//RGB turn off when idle
+#define RGBLIGHT_TIMEOUT (.1 * 60000) //convert milliseconds to minutes
 
 /* Optional encoder pins */
 #define ENCODERS_PAD_A { B5 }

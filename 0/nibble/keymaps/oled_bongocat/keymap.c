@@ -42,6 +42,12 @@ uint16_t alt_tab_timer = 0;
 bool muted = false;
 bool deafened = false;
 
+//RGB  turn off when idle variables
+static uint16_t key_timer; // timer to track the last keyboard activity
+static void refresh_rgb(void); // refreshes the activity timer and RGB, invoke whenever activity happens
+static void check_rgb_timeout(void); // checks if enough time has passed for RGB to timeout
+bool is_rgb_timeout = false; // store if RGB has timed out or not in a boolean
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_all(
               KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
@@ -52,11 +58,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_VIA1] = LAYOUT_all(
-              _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,    KC_F12,  _______,  KC_END,
-    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,
-    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______,
+              _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,  KC_END,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______,  KC_INS,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, KC_PSCR,
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MO(_VIA2), _______, _______,
-    _______,  _______, _______, _______,                            _______,                   _______, _______, _______,   KC_MPRV, KC_MPLY, KC_MNXT
+    _______,  KC_SLEP, _______, _______,                            _______,                   _______, _______, _______,   _______, _______, _______
   ),
 
   [_VIA2] = LAYOUT_all(
@@ -111,7 +117,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       }
     break;
   }
-    return true;
+
+  /*Refresh RGB timer*/
+  #ifdef RGBLIGHT_TIMEOUT
+  refresh_rgb();
+  #endif
+
+  return true;
 }
 
 #ifdef OLED_ENABLE
@@ -278,8 +290,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     }
 
+    /*Refresh RGB timer*/
+    #ifdef RGBLIGHT_TIMEOUT
+    if (record->event.pressed) refresh_rgb();
+    #endif
+
     return true;
 }
+
+
 
 void matrix_scan_user(void) {
   if (is_alt_tab_active) {
@@ -287,5 +306,21 @@ void matrix_scan_user(void) {
       unregister_code(KC_LALT);
       is_alt_tab_active = false;
     }
+  }
+}
+
+void refresh_rgb() {
+  key_timer = timer_read(); // store time of last refresh
+  if (is_rgb_timeout) { // only do something if rgb has timed out
+    print("Activity detected, removing timeout\n");
+    is_rgb_timeout = false;
+    rgblight_wakeup();
+  }
+}
+
+void check_rgb_timeout() {
+  if (!is_rgb_timeout && timer_elapsed(key_timer) > RGBLIGHT_TIMEOUT) {
+    rgblight_suspend();
+    is_rgb_timeout = true;
   }
 }
