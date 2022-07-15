@@ -317,7 +317,6 @@ void matrix_scan_user(void) {
 void refresh_rgb() {
   key_timer = timer_read(); // store time of last refresh
   if (is_rgb_timeout) { // only do something if rgb has timed out
-    print("Activity detected, removing timeout\n");
     is_rgb_timeout = false;
     rgblight_wakeup();
   }

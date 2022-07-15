@@ -56,14 +56,8 @@
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_SLEEP
 //RGB turn off when idle
-#define RGBLIGHT_TIMEOUT (5 * 60000) //convert milliseconds to minutes
+#define RGBLIGHT_TIMEOUT 60000 //convert milliseconds to minutes
 
 /* Optional encoder pins */
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { B4 }
-
-/*Always send esc*/
-#define GRAVE_ESC_SHIFT_OVERRIDE
-#define GRAVE_ESC_GUI_OVERRIDE
-#define GRAVE_ESC_CTRL_OVERRIDE
-#define GRAVE_ESC_ALT_OVERRIDE
