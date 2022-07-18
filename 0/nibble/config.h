@@ -53,10 +53,20 @@
 /* Optional SMT LED pins */
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 10
-#define RGBLIGHT_ANIMATIONS
+//#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_SLEEP
 //RGB turn off when idle
 #define RGBLIGHT_TIMEOUT 60000 //convert milliseconds to minutes
+#define RGBLIGHT_HUE_STEP 1
+#define RGBLIGHT_SAT_STEP 5
+#define RGBLIGHT_VAL_STEP 5
 
 /* Optional encoder pins */
 #define ENCODERS_PAD_A { B5 }
