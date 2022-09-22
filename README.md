@@ -14,6 +14,6 @@
 #####
 ##### There are two available animations for the spinning among us; clockwise and counter clockwise. This comes down to preference and there is no difference other than which direction he spins
 ### Clockwise:
-### 
+### ![Clockwise](https://github.com/swimwater/bennibble/blob/master/Among%20Us%20Animation/clockwise.gif)
 ### Counter Clockwise:
-###
+### ![Counter Clockwise](https://github.com/swimwater/bennibble/blob/master/Among%20Us%20Animation/counter_clockwise.gif)
