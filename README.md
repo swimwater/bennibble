@@ -1,5 +1,7 @@
 # Modifed QMK for the NIBBLE keyboard
 This project is a full build of the NIBBLE keyboard kit with the additional OLED screen.
+
+For information about the QMK software and a tutorial for flashing your own keyboard check out QMK's website here: https://docs.qmk.fm/#/
 # OLED Animations
 **Bongocat:**
 
